@@ -68,45 +68,5 @@ class StudentGroup
     {
         return $this->name;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add student
-     *
-     * @param \StudentsSearchBundle\Entity\Student $student
-     *
-     * @return StudentGroup
-     */
-    public function addStudent(\StudentsSearchBundle\Entity\Student $student)
-    {
-        $this->students[] = $student;
-
-        return $this;
-    }
-
-    /**
-     * Remove student
-     *
-     * @param \StudentsSearchBundle\Entity\Student $student
-     */
-    public function removeStudent(\StudentsSearchBundle\Entity\Student $student)
-    {
-        $this->students->removeElement($student);
-    }
-
-    /**
-     * Get students
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStudents()
-    {
-        return $this->students;
-    }
 }
+

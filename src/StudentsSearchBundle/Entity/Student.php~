@@ -41,6 +41,11 @@ class Student {
      * @ORM\JoinColumn(name="community_id", referencedColumnName="id")
      */
     private $community;
+    /**
+     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="students")
+     * @ORM\JoinColumn(name="students_id", referencedColumnName="id") 
+     */
+    private $group;
 
     /**
      * Get id
@@ -95,4 +100,28 @@ class Student {
         return $this->surname;
     }
 
+
+    /**
+     * Set community
+     *
+     * @param \StudentsSearchBundle\Entity\Community $community
+     *
+     * @return Student
+     */
+    public function setCommunity(\StudentsSearchBundle\Entity\Community $community = null)
+    {
+        $this->community = $community;
+
+        return $this;
+    }
+
+    /**
+     * Get community
+     *
+     * @return \StudentsSearchBundle\Entity\Community
+     */
+    public function getCommunity()
+    {
+        return $this->community;
+    }
 }
