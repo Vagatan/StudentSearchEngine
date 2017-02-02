@@ -29,16 +29,18 @@ class Community
     private $name;
     
     /**
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="communities")
+     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
+     */
+    private $district;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="County", inversedBy="communities")
      * @ORM\JoinColumn(name="county_id", referencedColumnName="id")
      */
     private $county;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="communities")
-     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
-     */
-    private $district;
+    
     
     /**
      * @ORM\OneToMany(targetEntity="Student", mappedBy="community")

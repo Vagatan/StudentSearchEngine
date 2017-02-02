@@ -42,10 +42,10 @@ class Student {
      */
     private $community;
     /**
-     * @ORM\ManyToOne(targetEntity="StudentGroup", inversedBy="students")
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id") 
+     *
+     * @ORM\OneToMany(targetEntity="StudentGroup", mappedBy="student")
      */
-    private $group;
+    private $groups;
 
     /**
      * Get id
@@ -147,5 +147,46 @@ class Student {
     public function getGroup()
     {
         return $this->group;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add group
+     *
+     * @param \StudentsSearchBundle\Entity\StudentGroup $group
+     *
+     * @return Student
+     */
+    public function addGroup(\StudentsSearchBundle\Entity\StudentGroup $group)
+    {
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Remove group
+     *
+     * @param \StudentsSearchBundle\Entity\StudentGroup $group
+     */
+    public function removeGroup(\StudentsSearchBundle\Entity\StudentGroup $group)
+    {
+        $this->groups->removeElement($group);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

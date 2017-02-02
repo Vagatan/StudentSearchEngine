@@ -29,10 +29,10 @@ class StudentGroup
     private $name;
     
     /**
-     *
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="group")
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="groups")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id") 
      */
-    private $students;
+    private $student;
 
 
     /**
@@ -108,5 +108,29 @@ class StudentGroup
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Set student
+     *
+     * @param \StudentsSearchBundle\Entity\Student $student
+     *
+     * @return StudentGroup
+     */
+    public function setStudent(\StudentsSearchBundle\Entity\Student $student = null)
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * Get student
+     *
+     * @return \StudentsSearchBundle\Entity\Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
     }
 }
