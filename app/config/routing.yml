@@ -1,0 +1,4 @@
+students_search:
+    resource: "@StudentsSearchBundle/Controller/"
+    type:     annotation
+    prefix:   /
