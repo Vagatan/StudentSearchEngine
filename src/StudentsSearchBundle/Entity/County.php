@@ -31,7 +31,12 @@ class County
     /**
      * @ORM\OneToMany(targetEntity="Community", mappedBy="county")
      */
-    private $communities
+    private $communities;
+    /**
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="countties")
+     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
+     */
+    private $district;
 
 
     /**
@@ -67,5 +72,69 @@ class County
     {
         return $this->name;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->communities = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add community
+     *
+     * @param \StudentsSearchBundle\Entity\Community $community
+     *
+     * @return County
+     */
+    public function addCommunity(\StudentsSearchBundle\Entity\Community $community)
+    {
+        $this->communities[] = $community;
+
+        return $this;
+    }
+
+    /**
+     * Remove community
+     *
+     * @param \StudentsSearchBundle\Entity\Community $community
+     */
+    public function removeCommunity(\StudentsSearchBundle\Entity\Community $community)
+    {
+        $this->communities->removeElement($community);
+    }
+
+    /**
+     * Get communities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommunities()
+    {
+        return $this->communities;
+    }
+
+    /**
+     * Set district
+     *
+     * @param \StudentsSearchBundle\Entity\District $district
+     *
+     * @return County
+     */
+    public function setDistrict(\StudentsSearchBundle\Entity\District $district = null)
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * Get district
+     *
+     * @return \StudentsSearchBundle\Entity\District
+     */
+    public function getDistrict()
+    {
+        return $this->district;
+    }
+}

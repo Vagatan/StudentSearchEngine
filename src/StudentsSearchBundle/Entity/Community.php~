@@ -68,28 +68,5 @@ class Community
     {
         return $this->name;
     }
-
-    /**
-     * Set county
-     *
-     * @param \StudentsSearchBundle\Entity\County $county
-     *
-     * @return Community
-     */
-    public function setCounty(\StudentsSearchBundle\Entity\County $county = null)
-    {
-        $this->county = $county;
-
-        return $this;
-    }
-
-    /**
-     * Get county
-     *
-     * @return \StudentsSearchBundle\Entity\County
-     */
-    public function getCounty()
-    {
-        return $this->county;
-    }
 }
+

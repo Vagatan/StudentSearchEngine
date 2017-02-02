@@ -5,12 +5,12 @@ namespace StudentsSearchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * District/Województwo
+ * County/Powiat
  *
- * @ORM\Table(name="district")
- * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\DistrictRepository")
+ * @ORM\Table(name="county")
+ * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\CountyRepository")
  */
-class District
+class County
 {
     /**
      * @var int
@@ -27,10 +27,16 @@ class District
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
     /**
-     * @ORM\OneToMany(targetEntity="County", mappedBy="district")
+     * @ORM\OneToMany(targetEntity="Community", mappedBy="county")
      */
-    private $counties;
+    private $communities;
+    /**
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="countties")
+     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
+     */
+    private $district;
 
 
     /**
@@ -48,7 +54,7 @@ class District
      *
      * @param string $name
      *
-     * @return District
+     * @return County
      */
     public function setName($name)
     {
@@ -71,40 +77,40 @@ class District
      */
     public function __construct()
     {
-        $this->counties = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->communities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add county
+     * Add community
      *
-     * @param \StudentsSearchBundle\Entity\County $county
+     * @param \StudentsSearchBundle\Entity\Community $community
      *
-     * @return District
+     * @return County
      */
-    public function addCounty(\StudentsSearchBundle\Entity\County $county)
+    public function addCommunity(\StudentsSearchBundle\Entity\Community $community)
     {
-        $this->counties[] = $county;
+        $this->communities[] = $community;
 
         return $this;
     }
 
     /**
-     * Remove county
+     * Remove community
      *
-     * @param \StudentsSearchBundle\Entity\County $county
+     * @param \StudentsSearchBundle\Entity\Community $community
      */
-    public function removeCounty(\StudentsSearchBundle\Entity\County $county)
+    public function removeCommunity(\StudentsSearchBundle\Entity\Community $community)
     {
-        $this->counties->removeElement($county);
+        $this->communities->removeElement($community);
     }
 
     /**
-     * Get counties
+     * Get communities
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCounties()
+    public function getCommunities()
     {
-        return $this->counties;
+        return $this->communities;
     }
 }
