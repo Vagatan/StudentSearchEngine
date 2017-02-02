@@ -5,7 +5,7 @@ namespace StudentsSearchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * District
+ * District/Województwo
  *
  * @ORM\Table(name="district")
  * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\DistrictRepository")

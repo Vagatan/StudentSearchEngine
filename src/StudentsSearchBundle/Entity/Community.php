@@ -5,7 +5,7 @@ namespace StudentsSearchBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Community
+ * Community/Gmina
  *
  * @ORM\Table(name="community")
  * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\CommunityRepository")
@@ -27,6 +27,12 @@ class Community
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="County", inversedBy="communities")
+     * @ORM\JoinColumn(name="county_id", referencedColumnName="id")
+     */
+    private $county;
 
 
     /**
