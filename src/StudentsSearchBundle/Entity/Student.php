@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="student")
  * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\StudentRepository")
  */
-class Student
-{
+class Student {
+
     /**
      * @var int
      *
@@ -34,22 +34,20 @@ class Student
      * @ORM\Column(name="surname", type="string", length=255)
      */
     private $surname;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="residence", type="integer")
-     */
-    private $residence;
 
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="Community", inversedBy="students")
+     * @ORM\JoinColumn(name="community_id", referencedColumnName="id")
+     */
+    private $community;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +58,7 @@ class Student
      *
      * @return Student
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -72,8 +69,7 @@ class Student
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -84,8 +80,7 @@ class Student
      *
      * @return Student
      */
-    public function setSurname($surname)
-    {
+    public function setSurname($surname) {
         $this->surname = $surname;
 
         return $this;
@@ -96,32 +91,32 @@ class Student
      *
      * @return string
      */
-    public function getSurname()
-    {
+    public function getSurname() {
         return $this->surname;
     }
 
+
     /**
-     * Set residence
+     * Set community
      *
-     * @param integer $residence
+     * @param \StudentsSearchBundle\Entity\Community $community
      *
      * @return Student
      */
-    public function setResidence($residence)
+    public function setCommunity(\StudentsSearchBundle\Entity\Community $community = null)
     {
-        $this->residence = $residence;
+        $this->community = $community;
 
         return $this;
     }
 
     /**
-     * Get residence
+     * Get community
      *
-     * @return integer
+     * @return \StudentsSearchBundle\Entity\Community
      */
-    public function getResidence()
+    public function getCommunity()
     {
-        return $this->residence;
+        return $this->community;
     }
 }

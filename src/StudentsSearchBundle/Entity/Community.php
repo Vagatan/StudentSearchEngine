@@ -39,7 +39,11 @@ class Community
      * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
     private $district;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="community")
+     */
+    private $students;
 
     /**
      * Get id
@@ -121,5 +125,46 @@ class Community
     public function getDistrict()
     {
         return $this->district;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add student
+     *
+     * @param \StudentsSearchBundle\Entity\Student $student
+     *
+     * @return Community
+     */
+    public function addStudent(\StudentsSearchBundle\Entity\Student $student)
+    {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \StudentsSearchBundle\Entity\Student $student
+     */
+    public function removeStudent(\StudentsSearchBundle\Entity\Student $student)
+    {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }
