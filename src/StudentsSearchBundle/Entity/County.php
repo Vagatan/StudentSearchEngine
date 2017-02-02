@@ -33,7 +33,7 @@ class County
      */
     private $communities;
     /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="countties")
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="counties")
      * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
     private $district;

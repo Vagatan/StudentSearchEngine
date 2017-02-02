@@ -33,7 +33,7 @@ class County
      */
     private $communities;
     /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="countties")
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="counties")
      * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
     private $district;
@@ -112,5 +112,29 @@ class County
     public function getCommunities()
     {
         return $this->communities;
+    }
+
+    /**
+     * Set district
+     *
+     * @param \StudentsSearchBundle\Entity\District $district
+     *
+     * @return County
+     */
+    public function setDistrict(\StudentsSearchBundle\Entity\District $district = null)
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * Get district
+     *
+     * @return \StudentsSearchBundle\Entity\District
+     */
+    public function getDistrict()
+    {
+        return $this->district;
     }
 }

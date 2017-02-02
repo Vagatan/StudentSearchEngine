@@ -31,6 +31,11 @@ class District
      * @ORM\OneToMany(targetEntity="County", mappedBy="district")
      */
     private $counties;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Community", mappedBy="district")
+     */
+    private $communities;
 
 
     /**
@@ -66,5 +71,45 @@ class District
     {
         return $this->name;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->counties = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add county
+     *
+     * @param \StudentsSearchBundle\Entity\County $county
+     *
+     * @return District
+     */
+    public function addCounty(\StudentsSearchBundle\Entity\County $county)
+    {
+        $this->counties[] = $county;
+
+        return $this;
+    }
+
+    /**
+     * Remove county
+     *
+     * @param \StudentsSearchBundle\Entity\County $county
+     */
+    public function removeCounty(\StudentsSearchBundle\Entity\County $county)
+    {
+        $this->counties->removeElement($county);
+    }
+
+    /**
+     * Get counties
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCounties()
+    {
+        return $this->counties;
+    }
+}
