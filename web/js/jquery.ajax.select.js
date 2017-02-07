@@ -1,7 +1,6 @@
 $(document).ready(function () {
     var form = $('form[name=student]');
     var district = $('#student_district');
-    console.log($('#student_district'));
     form.on('change', '#student_district', function (e) {
         var $data = {'district_id': district.val()};
         $.ajax({
