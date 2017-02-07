@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="county")
  * @ORM\Entity(repositoryClass="StudentsSearchBundle\Repository\CountyRepository")
  */
-class County
-{
+class County {
+
     /**
      * @var int
      *
@@ -27,25 +27,29 @@ class County
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Community", mappedBy="county")
      */
     private $communities;
+
     /**
      * @ORM\ManyToOne(targetEntity="District", inversedBy="counties")
      * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
     private $district;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="county")
+     */
+    private $students;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -56,8 +60,7 @@ class County
      *
      * @return County
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -68,15 +71,14 @@ class County
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->communities = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -87,8 +89,7 @@ class County
      *
      * @return County
      */
-    public function addCommunity(\StudentsSearchBundle\Entity\Community $community)
-    {
+    public function addCommunity(\StudentsSearchBundle\Entity\Community $community) {
         $this->communities[] = $community;
 
         return $this;
@@ -99,8 +100,7 @@ class County
      *
      * @param \StudentsSearchBundle\Entity\Community $community
      */
-    public function removeCommunity(\StudentsSearchBundle\Entity\Community $community)
-    {
+    public function removeCommunity(\StudentsSearchBundle\Entity\Community $community) {
         $this->communities->removeElement($community);
     }
 
@@ -109,8 +109,7 @@ class County
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCommunities()
-    {
+    public function getCommunities() {
         return $this->communities;
     }
 
@@ -121,8 +120,7 @@ class County
      *
      * @return County
      */
-    public function setDistrict(\StudentsSearchBundle\Entity\District $district = null)
-    {
+    public function setDistrict(\StudentsSearchBundle\Entity\District $district = null) {
         $this->district = $district;
 
         return $this;
@@ -133,8 +131,39 @@ class County
      *
      * @return \StudentsSearchBundle\Entity\District
      */
-    public function getDistrict()
-    {
+    public function getDistrict() {
         return $this->district;
     }
+
+    /**
+     * Add student
+     *
+     * @param \StudentsSearchBundle\Entity\Student $student
+     *
+     * @return County
+     */
+    public function addStudent(\StudentsSearchBundle\Entity\Student $student) {
+        $this->students[] = $student;
+
+        return $this;
+    }
+
+    /**
+     * Remove student
+     *
+     * @param \StudentsSearchBundle\Entity\Student $student
+     */
+    public function removeStudent(\StudentsSearchBundle\Entity\Student $student) {
+        $this->students->removeElement($student);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getStudents() {
+        return $this->students;
+    }
+
 }

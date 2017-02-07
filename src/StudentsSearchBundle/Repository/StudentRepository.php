@@ -10,4 +10,15 @@ namespace StudentsSearchBundle\Repository;
  */
 class StudentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByName($names){
+       $query = $this->getEntityManager()->createQuery("
+               SELECT student 
+               FROM StudentsSearchBundle:Student student
+               WHERE student.name LIKE :name
+               ORDER BY student.name
+               ")
+               ->setParameter('name', $names."%")
+               ->getResult();
+       return $query;
+   }
 }

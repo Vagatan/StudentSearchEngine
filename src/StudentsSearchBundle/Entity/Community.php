@@ -15,7 +15,7 @@ class Community
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="integer")     
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -28,11 +28,7 @@ class Community
      */
     private $name;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="District", inversedBy="communities")
-     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
-     */
-    private $district;
+   
     
     /**
      * @ORM\ManyToOne(targetEntity="County", inversedBy="communities")
@@ -168,5 +164,19 @@ class Community
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Community
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

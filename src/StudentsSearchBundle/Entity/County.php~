@@ -20,7 +20,7 @@ class County
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
@@ -37,6 +37,10 @@ class County
      * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
     private $district;
+    /**
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="county")
+     */
+    private $students;
 
 
     /**
@@ -137,4 +141,6 @@ class County
     {
         return $this->district;
     }
+
+    
 }

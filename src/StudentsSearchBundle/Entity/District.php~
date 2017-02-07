@@ -31,11 +31,11 @@ class District
      * @ORM\OneToMany(targetEntity="County", mappedBy="district")
      */
     private $counties;
-    
     /**
-     * @ORM\OneToMany(targetEntity="Community", mappedBy="district")
+     * @ORM\OneToMany(targetEntity="Student", mappedBy="district")
      */
-    private $communities;
+    private $students;
+    
 
 
     /**
@@ -111,5 +111,39 @@ class District
     public function getCounties()
     {
         return $this->counties;
+    }
+
+    /**
+     * Add community
+     *
+     * @param \StudentsSearchBundle\Entity\Community $community
+     *
+     * @return District
+     */
+    public function addCommunity(\StudentsSearchBundle\Entity\Community $community)
+    {
+        $this->communities[] = $community;
+
+        return $this;
+    }
+
+    /**
+     * Remove community
+     *
+     * @param \StudentsSearchBundle\Entity\Community $community
+     */
+    public function removeCommunity(\StudentsSearchBundle\Entity\Community $community)
+    {
+        $this->communities->removeElement($community);
+    }
+
+    /**
+     * Get communities
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommunities()
+    {
+        return $this->communities;
     }
 }

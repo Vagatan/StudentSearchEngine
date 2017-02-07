@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  app:
+    container_name: student-search
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    volumes:
+      - .:/project
+      - data_logs:/logs
+    working_dir: /project
+    stdin_open: true
+    links:
+      - db
+
+  db:
+    container_name: search-db
+    image: mariadb:10.1
+    ports:
+      - "8080:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_DATABASE=jdpdb
+    volumes:
+      - data_db:/databases
+      - "./docker/config-file.cnf:/etc/mysql/conf.d/config-file.cnf"
+
+  admin:
+    container_name: search-pma
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "9000:80"
+    environment:
+      - "PMA_USER=root"
+      - "PMA_PASSWORD=docker"
+
+volumes:
+  data_db: {}
+  data_logs: {}

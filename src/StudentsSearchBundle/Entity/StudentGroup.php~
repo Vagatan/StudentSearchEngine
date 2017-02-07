@@ -29,10 +29,9 @@ class StudentGroup
     private $name;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Student", inversedBy="groups")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id") 
+     * @ORM\ManyToMany(targetEntity="Student", mappedBy="groups")
      */
-    private $student;
+    private $students;
 
 
     /**
@@ -109,4 +108,6 @@ class StudentGroup
     {
         return $this->students;
     }
+
+    
 }

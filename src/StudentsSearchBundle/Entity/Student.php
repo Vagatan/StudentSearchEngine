@@ -29,11 +29,18 @@ class Student {
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="surname", type="string", length=255)
+     * 
+     * @ORM\ManyToOne(targetEntity="District", inversedBy="students")
+     * @ORM\JoinColumn(name="district_id", referencedColumnName="id")
      */
-    private $surname;
+    private $district;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="County", inversedBy="students")
+     * @ORM\JoinColumn(name="county_id", referencedColumnName="id")
+     */
+    private $county;
 
     /**
      * 
@@ -41,9 +48,11 @@ class Student {
      * @ORM\JoinColumn(name="community_id", referencedColumnName="id")
      */
     private $community;
+
     /**
      *
-     * @ORM\OneToMany(targetEntity="StudentGroup", mappedBy="student")
+     * @ORM\ManyToMany(targetEntity="StudentGroup", inversedBy="students")
+     * @ORM\JoinTable(name="students_groups")
      */
     private $groups;
 
@@ -100,7 +109,6 @@ class Student {
         return $this->surname;
     }
 
-
     /**
      * Set community
      *
@@ -108,8 +116,7 @@ class Student {
      *
      * @return Student
      */
-    public function setCommunity(\StudentsSearchBundle\Entity\Community $community = null)
-    {
+    public function setCommunity(\StudentsSearchBundle\Entity\Community $community = null) {
         $this->community = $community;
 
         return $this;
@@ -120,39 +127,14 @@ class Student {
      *
      * @return \StudentsSearchBundle\Entity\Community
      */
-    public function getCommunity()
-    {
+    public function getCommunity() {
         return $this->community;
     }
 
     /**
-     * Set group
-     *
-     * @param \StudentsSearchBundle\Entity\StudentGroup $group
-     *
-     * @return Student
-     */
-    public function setGroup(\StudentsSearchBundle\Entity\StudentGroup $group = null)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * Get group
-     *
-     * @return \StudentsSearchBundle\Entity\StudentGroup
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-    /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -163,8 +145,7 @@ class Student {
      *
      * @return Student
      */
-    public function addGroup(\StudentsSearchBundle\Entity\StudentGroup $group)
-    {
+    public function addGroup(\StudentsSearchBundle\Entity\StudentGroup $group) {
         $this->groups[] = $group;
 
         return $this;
@@ -175,8 +156,7 @@ class Student {
      *
      * @param \StudentsSearchBundle\Entity\StudentGroup $group
      */
-    public function removeGroup(\StudentsSearchBundle\Entity\StudentGroup $group)
-    {
+    public function removeGroup(\StudentsSearchBundle\Entity\StudentGroup $group) {
         $this->groups->removeElement($group);
     }
 
@@ -185,8 +165,52 @@ class Student {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGroups()
-    {
+    public function getGroups() {
         return $this->groups;
     }
+
+    /**
+     * Set district
+     *
+     * @param \StudentsSearchBundle\Entity\Community $district
+     *
+     * @return Student
+     */
+    public function setDistrict(\StudentsSearchBundle\Entity\Community $district = null) {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    /**
+     * Get district
+     *
+     * @return \StudentsSearchBundle\Entity\Community
+     */
+    public function getDistrict() {
+        return $this->district;
+    }
+
+    /**
+     * Set county
+     *
+     * @param \StudentsSearchBundle\Entity\Community $county
+     *
+     * @return Student
+     */
+    public function setCounty(\StudentsSearchBundle\Entity\Community $county = null) {
+        $this->county = $county;
+
+        return $this;
+    }
+
+    /**
+     * Get county
+     *
+     * @return \StudentsSearchBundle\Entity\Community
+     */
+    public function getCounty() {
+        return $this->county;
+    }
+
 }
