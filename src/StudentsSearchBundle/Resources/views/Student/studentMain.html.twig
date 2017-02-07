@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1>Lista studentów</h1>
-    
+
     <a href="{{ path('student_finder') }}">Znajdź studenta</a>
     <table>
         <thead>
@@ -36,11 +36,16 @@
         </div>
     {% endif %}    
     {% if app.session.get("student_group") %}
-        {% set clipboards =  app.session.get("student_group") %}
-        <div>W schowku jest {{ clipboards|length }} studentów</div>
+        {% set storage =  app.session.get("student_group") %}
+        {% if storage|length == 1 %}
+            <div>W schowku jest {{ storage|length }} student</div>
+        {% else %}
+            <div>W schowku jest {{ storage|length }} studentów</div>
+        {%endif%}
+        <div><a href="{{ path('clear') }}">Wyczyść schowek</a></div>
     {%endif %}
     <div>
         <a href="{{ path('student_groups') }}">Grupy</a>
     </div>
-        
+
 {% endblock %}

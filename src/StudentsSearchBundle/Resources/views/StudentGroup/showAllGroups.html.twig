@@ -30,7 +30,7 @@
                                 <a href="{{ path('add_to_group', { 'groupId': group.id }) }}">Dodaj</a>
                             {% endif %}
                         {% else %}
-                            <div><a href="{{ path('show_all') }}">Wybierz studenta</a></div>
+                            <a href="{{ path('show_all') }}">Wybierz studenta</a>
 
                         {%endif %}
 
@@ -49,15 +49,19 @@
     {% endif %}
 
     {% if app.session.get("student_group") %}
-        {% set clipboards =  app.session.get("student_group") %}
-        {% if clipboards|length > 0 %}
-            <div>W schowku jest {{ clipboards|length }} studentów</div>
+        {% set storage =  app.session.get("student_group") %}
+        {% if storage|length == 1 %}
+            <div>W schowku jest {{ storage|length }} student</div>
+        {% elseif storage|length > 1 %}
+            <div>W schowku jest {{ storage|length }} studentów</div>
+        {% else %}
+            <div>Schowek jest pusty</div>
+        {%endif%}
+        <div>
             <a href="{{ path('clear') }}">Wyczyść schowek</a>
-        {% endif %}
-    {% else %}
-        <div>Schowek jest pusty</div>
-
+        </div>
     {%endif %}
+
     <div>
         <a href="{{ path('show_all') }}">Wróć do listy studentów</a>
     </div>
