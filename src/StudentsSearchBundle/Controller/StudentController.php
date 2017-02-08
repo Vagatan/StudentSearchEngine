@@ -16,46 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class StudentController extends Controller {
 
     /**
-     * @Route("/search_test", name="student_finder")
-     * 
-     */
-    public function selectAction(Request $request) {
-
-        $form = $this->createFormBuilder()
-                //->setAction("search")
-                ->add("name", TextType::class, ["label" => "Nazwisko"])
-                ->add("district", EntityType::class, ["label" => "District", "class" => "StudentsSearchBundle:District", "choice_label" => "name"])
-                ->add("county", EntityType::class, ["label" => "County", "class" => "StudentsSearchBundle:County", "choice_label" => "name"])
-                //->add("community", EntityType::class, ["label" => "Community", "class" => "StudentsSearchBundle:Community", "choice_label" => "name"])
-                ->add("Szukaj", SubmitType::class)
-                ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $studentName = $form->get("name")->getData();
-
-            $students = $em->getRepository("StudentsSearchBundle:Student")->findByName($studentName);
-
-
-            return $this->render("StudentsSearchBundle:Student:showAll.html.twig", ["students" => $students]);
-        }
-
-        return $this->render("StudentsSearchBundle:Student:newStudent.html.twig", ["form" => $form->createView()]);
-    }
-
-    /**
-     * @Route("/form")
-     */
-    public function formTestAction() {
-        $student = new Student();
-        $form = $this->createForm("StudentsSearchBundle\Form\Type\StudentType", $student);
-        return $this->render("StudentsSearchBundle:Student:newStudent.html.twig", ["form" => $form->createView()]);
-    }
-
-    /**
-     * @Route("/main", name="show_all")
+     * @Route("/all", name="show_all")
      * @Template
      */
     public function studentMainAction() {
@@ -67,16 +28,21 @@ class StudentController extends Controller {
     }
 
     /**
-     * @Route("/county", name="county_list")
+     * @Route("/search", name="county_list")
+     * 
+     * @return Response
      */
     public function countyAjaxAction(Request $request) {
 
         $form = $this->createForm("StudentsSearchBundle\Form\Type\StudentType");
+        $studentRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:Student");
+        $districtRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:District");
+        $countyRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:County");
+        $communityRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:Community");
         if ($request->isXmlHttpRequest()) {
             if ($request->request->get("district_id")) {
                 $data = $request->request->get("district_id");
-                $repoCounty = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:County");    
-                $counties = $repoCounty->findBy(["district" => $data]);
+                $counties = $countyRepo->findBy(["district" => $data]);
                 $count = [];
                 foreach ($counties as $county) {
                     $count[] = ["id" => $county->getId(), "name" => $county->getName()];
@@ -85,15 +51,53 @@ class StudentController extends Controller {
             }
             if ($request->request->get("county_id")) {
                 $countyData = $request->request->get("county_id");
-                $repoCommunity = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:Community");
-                $communities = $repoCommunity->findBy(["county" => $countyData]);
+                $communities = $communityRepo->findBy(["county" => $countyData]);
                 $comm = [];
                 foreach ($communities as $community) {
                     $comm[] = ["id" => $community->getId(), "name" => $community->getName()];
                 }
                 return new JsonResponse(["community" => $comm]);
             }
-        } return $this->render("StudentsSearchBundle:Student:newStudent.html.twig", ["form" => $form->createView()]);
+        }
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $student = $form->getData();
+            $studentName = $student["name"];
+            if (isset($student["district"])) {
+                $studentName = $student["name"];
+                $studentDistrict = $student["district"];
+                $findDistrict = $districtRepo->find($studentDistrict);
+                $students = $studentRepo->findByDistrict($studentName, $findDistrict);
+
+                return $this->render("StudentsSearchBundle:Student:showAll.html.twig", ["students" => $students, "form" => $form->createView()]);
+            }
+            if (isset($student["county"])) {
+                $studentName = $student["name"];
+                $studentDistrict = $student["district"];
+                $studentCounty = $student["county"];
+                $findDistrict = $districtRepo->find($studentDistrict);
+                $findCounty = $countyRepo->find($studentCounty);
+                $students = $studentRepo->findByDistrict($studentName, $findDistrict, $findCounty);
+
+                return $this->render("StudentsSearchBundle:Student:showAll.html.twig", ["students" => $students, "form" => $form->createView()]);
+            }
+            if (isset($student["community"])) {
+                $studentName = $student["name"];
+                $studentDistrict = $student["district"];
+                $studentCounty = $student["county"];
+                $studentCommunity = $student["community"];
+                $findDistrict = $districtRepo->find($studentDistrict);
+                $findCounty = $countyRepo->find($studentCounty);
+                $findCommunity = $communityRepo->find($studentCommunity);
+                $students = $studentRepo->findByDistrict($studentName, $findDistrict, $findCounty, $findCommunity);
+
+                return $this->render("StudentsSearchBundle:Student:showAll.html.twig", ["students" => $students, "form" => $form->createView()]);
+            }
+
+            $students = $studentRepo->findByName($studentName);
+            return $this->render("StudentsSearchBundle:Student:showAll.html.twig", ["students" => $students, "form" => $form->createView()]);
+        }
+        return $this->render("StudentsSearchBundle:Student:newStudent.html.twig", ["form" => $form->createView()]);
     }
 
 }
