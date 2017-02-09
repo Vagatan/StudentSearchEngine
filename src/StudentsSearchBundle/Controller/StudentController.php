@@ -46,7 +46,7 @@ class StudentController extends Controller {
             }
         }
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $student = $form->getData();
             $studentName = $student["name"];
             if (isset($student["district"])) {

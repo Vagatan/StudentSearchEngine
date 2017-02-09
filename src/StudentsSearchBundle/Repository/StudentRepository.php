@@ -19,8 +19,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
                 ->setParameter("name", $names . "%")
                 ->getQuery()
                 ->getResult();
-        return $query;
-        
+        return $query;        
     }
 
     public function findByDistrict($names, $district) {
@@ -37,7 +36,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
         return $query;
     }
 
-    public function findByDistrictAndCounty($names,  $county) {
+    public function findByDistrictAndCounty($names, $county) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
                 ->from("StudentsSearchBundle:Student", "student")
