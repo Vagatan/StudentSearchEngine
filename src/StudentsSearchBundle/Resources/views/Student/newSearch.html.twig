@@ -3,11 +3,11 @@
 {% block body %}
     <div class="form-group">
         {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
-        {{ form_row(form.name, { "label": "student.name" | trans }) }}
-        {{ form_row(form.district, { "label": "student.district" | trans }) }}
-        {{ form_row(form.county, { "label": "student.county" | trans}) }}
-        {{ form_row(form.community, { "label": "student.community" | trans}) }}
-        {{ form_row(form.submit, { "label": "student.search" | trans }) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.district) }}
+        {{ form_row(form.county) }}
+        {{ form_row(form.community) }}
+        {{ form_row(form.submit) }}
         {{ form_end(form) }}
     </div>
         <h1>{{ "student.search_result" | trans }}:</h1>
