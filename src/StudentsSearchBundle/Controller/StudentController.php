@@ -49,24 +49,28 @@ class StudentController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $student = $form->getData();
             $studentName = $student["name"];
+            if (isset($student["community"])) {
+                dump($student["community"]);
+                $studentCommunity = $student["community"];
+                $findCommunity = $communityRepo->find($studentCommunity);
+                dump($findCommunity);
+                $students = $studentRepo->findByDistrictAndCountyAndCommunity($studentName, $findCommunity);
+                return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
+            }
+            if (isset($student["county"])) {
+                $studentCounty = $student["county"];
+                $findCounty = $countyRepo->find($studentCounty);
+                $students = $studentRepo->findByDistrictAndCounty($studentName, $findCounty);
+                return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
+            }
             if (isset($student["district"])) {
                 $studentDistrict = $student["district"];
                 $findDistrict = $districtRepo->find($studentDistrict);
                 $students = $studentRepo->findByDistrict($studentName, $findDistrict);
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
             }
-            if (isset($student["county"])) {
-                $studentCounty = $student["county"];
-                $findCounty = $countyRepo->find($studentCounty);
-                $students = $studentRepo->findByDistrict($studentName, $findCounty);
-                return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
-            }
-            if (isset($student["community"])) {
-                $studentCommunity = $student["community"];                
-                $findCommunity = $communityRepo->find($studentCommunity);
-                $students = $studentRepo->findByDistrict($studentName, $findCommunity);
-                return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
-            }
+
+
             $students = $studentRepo->findByName($studentName);
             return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
         }
