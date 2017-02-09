@@ -6,40 +6,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class StudentGroupController extends Controller {
 
     /**
-     * @Route("/groups", name="student_groups")
-     * @Template
+     * @Route("/groups", name="all_groups")
      */
-    public function showAllGroupsAction() {
+    public function showAllAction() {
         $groupRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:StudentGroup");
         $groups = $groupRepo->findAll();
-        return ["groups" => $groups];
+        return $this->render("StudentsSearchBundle:StudentGroup:showAll.html.twig", ["groups" => $groups]);
     }
 
     /**
-     * @Route("/addToStorage/{studentId}", name="student_add_to_storage")
+     * @Route("/group_menu", name="groups_in_menu")
      */
-    public function addToStorageAction(Request $request, $studentId) {
+    public function menuAction() {
+        $groupRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:StudentGroup");
+        $groups = $groupRepo->findAll();
+        return $this->render("StudentsSearchBundle:StudentGroup:menu.html.twig", ["groups" => $groups]);
+    }
 
+    /**
+     * @Route("/groups/{groupId}", name="chosen_group")
+     */
+    public function showChosenGroupAction($groupId) {
+        $groupRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:StudentGroup");
+        $group = $groupRepo->find($groupId);
+        return $this->render("StudentsSearchBundle:StudentGroup:showChosenGroup.html.twig", ["group" => $group]);
+    }
 
-        if (!empty($request->getSession()->get("student_group"))) {
-            $studentsInGroup = $request->getSession()->get("student_group");
-            if (in_array($studentId, $studentsInGroup)) {
-                $request->getSession()
-                        ->getFlashBag()
-                        ->add("student_exist", "Wybierz innego studenta");
-                return $this->redirect($request->headers->get("referer"));
+    /**
+     * @Route("/addToStorage", name="added_to_storage")
+     * 
+     * @return Response
+     */
+    public function addToStorageAjaxAction(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $studentId = $request->request->get('studentId');
+            if (!empty($request->getSession()->get("student_group"))) {
+                $studentsInGroup = $request->getSession()->get("student_group");
+                if (in_array($studentId, $studentsInGroup)) {
+                    $request->getSession()
+                            ->getFlashBag()
+                            ->add("student_exist", "Wybierz innego studenta");
+                    return new JsonResponse();
+                }
+                $studentsInGroup[] = $studentId;
+                $request->getSession()->set("student_group", $studentsInGroup);
+            } else {
+                $studentsInGroup[] = $studentId;
+                $request->getSession()->set("student_group", $studentsInGroup);
             }
-            $studentsInGroup[] = $studentId;
-            $request->getSession()->set("student_group", $studentsInGroup);
-        } else {
-            $studentsInGroup[] = $studentId;
-            $request->getSession()->set("student_group", $studentsInGroup);
+            return new JsonResponse();
         }
-        return $this->redirect($request->headers->get("referer"));
     }
 
     /**
@@ -54,16 +75,20 @@ class StudentGroupController extends Controller {
         foreach ($request->getSession()->get("student_group") as $studentId) {
 
             $student = $studentRepo->find($studentId);
-            $student->addGroup($addedGroup);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($student);
-
-//                    $request->getSession()
-//                            ->getFlashBag()
-//                            ->add("student_in_group", "Wybrany student jest już w tej grupie");
-//                    return $this->redirect($request->headers->get("referer"));
+            if (!$student->getGroups()->contains($addedGroup)) {
+                $student->addGroup($addedGroup);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($student);
+                $em->flush();
+                unset($request->getSession()->get("student_group")[$studentId]);
+            } else {
+                $request->getSession()
+                        ->getFlashBag()
+                        ->add("student_in_group", "Wybrany student jest już w tej grupie");
+                return $this->redirect($request->headers->get("referer"));
+            }
         }
-        $em->flush();
+
         $request->getSession()->clear();
         return $this->redirect($request->headers->get("referer"));
     }

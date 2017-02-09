@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>{{ "group.available_groups" | trans }}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ "main.ordinal_number" | trans }}</th>
+                <th>{{ "group.name" | trans }}</th>
+                <th>{{ "main.action" | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td></td>
+                    <td>{{ group.name }}</td>
+                    <td><a href="{{ path('chosen_group', { 'groupId': group.id }) }}" role="button" class="btn btn-info">{{ "group.open" | trans }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.add.row.number.js') }}"></script>
+{% endblock %}

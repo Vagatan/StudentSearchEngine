@@ -7,8 +7,11 @@ main:
 student:
     name:               Nazwisko
     district:           Województwo
+    district_select:    Wybierz województwo
     county:             Powiat
-    community:          Gmina    
+    county_select:      Wybierz powiat
+    community:          Gmina
+    community_select:   Wybierz gminę
     search:             Szukaj
     search_result:      Znalezieni studenci
     storage:            Schowek

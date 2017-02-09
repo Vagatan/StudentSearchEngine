@@ -1,9 +1,0 @@
-<h1>Znalezieni studenci:</h1>
-
-<ol>
-    {% for student in students %}
-
-        <li>Nazwisko: {{ student.name }} Województwo: {{ student.district.name }} Powiat: {{ student.county.name }} Miejscowość: {{ student.community.name }}</li>
-
-    {% endfor %}
-</ol>

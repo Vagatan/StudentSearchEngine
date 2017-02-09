@@ -1,15 +1,48 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-    
+    <div class="form-group">
+        {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
+        {{ form_row(form.name, { "label": "student.name" | trans }) }}
+        {{ form_row(form.district, { "label": "student.district" | trans }) }}
+        {{ form_row(form.county, { "label": "student.county" | trans}) }}
+        {{ form_row(form.community, { "label": "student.community" | trans}) }}
+        {{ form_row(form.submit, { "label": "student.search" | trans }) }}
+        {{ form_end(form) }}
+    </div>
+        <h1>{{ "student.search_result" | trans }}:</h1>
 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ "main.ordinal_number" | trans }}</th>
+                <th>{{ "student.name" | trans }}</th>
+                <th>{{ "student.district" | trans }}</th>
+                <th>{{ "student.county" | trans }}</th>
+                <th>{{ "student.community" | trans }}</th>
+                <th>{{ "main.action" | trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if students is defined %}
+            {% for student in students %}
+                <tr>
+                    <td></td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.district.name }}</td>
+                    <td>{{ student.county.name }}</td>
+                    <td>{{ student.community.name }}</td>
+                    <td><button class="btn btn-info add_to_storage" id="{{ student.id }}">{{ "student.add_to_storage" | trans }}</button></td>
+                </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
 {% endblock %}
+
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="{{ asset('js/jquery.ajax.select.js') }}"></script>
-
+    <script src="{{ asset('js/jquery.add.row.number.js') }}"></script>
+    <script src="{{ asset('js/jquery.add.to.session.js') }}"></script>
 {% endblock %}

@@ -38,38 +38,32 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
         return $query;
     }
 
-    public function findByDistrictAndCounty($names, $district, $county) {
+    public function findByDistrictAndCounty($names,  $county) {
         $query = $this->getEntityManager()->createQuery("
                SELECT student 
                FROM StudentsSearchBundle:Student student
                WHERE student.name LIKE :name
-               AND student.district = :district
                AND student.county = :county
                ORDER BY student.name
                ")
                 ->setParameters([
-                    "name" => $names . "%",
-                    "district" => $district,
+                    "name" => $names . "%",                   
                     "county" => $county
                 ])
                 ->getResult();
         return $query;
     }
 
-    public function findByDistrictAndCountyAndCommunity($names, $district, $county, $community) {
+    public function findByDistrictAndCountyAndCommunity($names, $community) {
         $query = $this->getEntityManager()->createQuery("
                SELECT student 
                FROM StudentsSearchBundle:Student student
                WHERE student.name LIKE :name
-               AND student.district = :district
-               AND student.county = :county
                AND student.community = :community
                ORDER BY student.name
                ")
                 ->setParameters([
                     "name" => $names . "%",
-                    "district" => $district,
-                    "county" => $county,
                     "community" => $community
                 ])
                 ->getResult();

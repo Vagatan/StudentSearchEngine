@@ -7,8 +7,11 @@ main:
 student:
     name:               Name
     district:           District
+    district_select:    Select district
     county:             County
-    community:          Community    
+    county_select:      Select county
+    community:          Community
+    community_select:   Select community
     search:             Search
     search_result:      Znalezieni studenci
     storage:            Clipboard

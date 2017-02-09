@@ -1,0 +1,21 @@
+{
+  "name": "students_search_engine",
+  "homepage": "https://github.com/n-educatio/jdp-1-gkozak",
+  "authors": [
+    "Vagatan <grzesiek.kozak@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

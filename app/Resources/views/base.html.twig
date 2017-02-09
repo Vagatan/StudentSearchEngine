@@ -2,14 +2,32 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Wyszukiwarka studentów{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+        <title>{% block title %}{{ "main.page_title" | trans }}{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet"
+                  href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        {% endblock %}
 
-</head>
-<body>
-
-{% block body %}{% endblock %}
-{% block javascripts %}
-{% endblock %}
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                    <br>
+                    <a href="{{ path('student_search') }}" role="button" class="btn btn-primary btn-block">{{ "main.main_page" |trans }}</a>
+                    <br>
+                    {{ render(controller("StudentsSearchBundle:StudentGroup:menu")) }}
+                    
+                </div>
+                <div class="col-md-8">
+                {% block body %}{% endblock %}
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery.add.to.session.js') }}"></script>
+    {% endblock %}
 </body>
 </html>
