@@ -38,7 +38,7 @@ class StudentType extends AbstractType {
                 ->add("submit", SubmitType::class, [
                     "label" => "student.search",
                     "attr" => ["class" => "btn btn-primary"]]);
-        $builder->get("district")->resetViewTransformers();
+        //$builder->get("district")->resetViewTransformers();
         $builder->get("county")->resetViewTransformers();
         $builder->get("community")->resetViewTransformers();
     }

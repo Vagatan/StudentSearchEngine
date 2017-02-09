@@ -44,7 +44,7 @@ class StudentGroupController extends Controller {
      */
     public function addToStorageAjaxAction(Request $request) {
         if ($request->isXmlHttpRequest()) {
-            $studentId = $request->request->get('studentId');
+            $studentId = $request->request->get("studentId");
             if (!empty($request->getSession()->get("student_group"))) {
                 $studentsInGroup = $request->getSession()->get("student_group");
                 if (in_array($studentId, $studentsInGroup)) {
@@ -80,7 +80,6 @@ class StudentGroupController extends Controller {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($student);
                 $em->flush();
-                unset($request->getSession()->get("student_group")[$studentId]);
             } else {
                 $request->getSession()
                         ->getFlashBag()
@@ -88,7 +87,6 @@ class StudentGroupController extends Controller {
                 return $this->redirect($request->headers->get("referer"));
             }
         }
-
         $request->getSession()->clear();
         return $this->redirect($request->headers->get("referer"));
     }
@@ -100,13 +98,25 @@ class StudentGroupController extends Controller {
         $request->getSession()->clear();
         return $this->redirect($request->headers->get("referer"));
     }
-    
+
     /**
      * @Route("/groups/{$id}/cleartest")
      */
-    public function clearAjaxAction (Request $request, $id) {
+    public function clearAjaxAction(Request $request, $id) {
         $request->getSession()->clear();
         return new JsonResponse();
+    }
+
+    /**
+     * @Route("/storage", name="storage_preview")
+     */
+    public function showStorageAction(Request $request) {
+        $studentRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:Student");
+        $students = [];
+        foreach ($request->getSession()->get("student_group") as $studentId) {
+            $students[] = $studentRepo->find($studentId);
+        }
+        return $this->render("StudentsSearchBundle:StudentGroup:showStorage.html.twig", ["students" => $students]);
     }
 
 }

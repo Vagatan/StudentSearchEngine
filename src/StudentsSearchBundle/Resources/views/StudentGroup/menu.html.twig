@@ -5,11 +5,11 @@
     <ul class="dropdown-menu btn-block">
         {% for group in groups %}
             <li>
-                <a href="{{ path('chosen_group', { 'groupId': group.id }) }}">{{ group.name }}</a>
+                <a href="{{ path("chosen_group", { "groupId": group.id }) }}">{{ group.name }}</a>
             </li>         
         {% endfor %}
         <li role="separator" class="divider"></li>
-        <li><a href="{{ path('all_groups') }}">{{ "group.all_groups" | trans }}</a></a></li>
+        <li><a href="{{ path("all_groups") }}">{{ "group.all_groups" | trans }}</a></a></li>
     </ul>
 </div>
 {% block javascripts %}

@@ -1,28 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 {% block body %}
     <h1>{{ group.name }}</h1>
 
     <div>
-        {% if app.session.flashBag.has('student_in_group') %}
+        {% if app.session.flashBag.has("student_in_group") %}
             <div class="alert alert-student_in_group">
-                {% for msg in app.session.flashBag.get('student_in_group') %}
+                {% for msg in app.session.flashBag.get("student_in_group") %}
                     <p class="bg-danger">{{ msg }}</p>
                 {% endfor %}
             </div>
         {% endif %}
 
+
         {% if app.session.get("student_group") %}
             {% set storage =  app.session.get("student_group") %}
             {% if storage|length > 0 %}
-                <div class="btn-group" role="group"><button class="btn btn-warning" type="button">{{ "student.storage" | trans }}  <span class="badge">{{ storage|length }}</span></button>
-                    <a href="{{ path('add_to_group', { 'groupId': group.id }) }}" class="btn btn-success" role="button">{{ "group.add_to_group" | trans }}</a>
+                <div class="btn-group" role="group">
+                    {{ render(controller("StudentsSearchBundle:StudentGroup:showStorage")) }} 
+                    <a href="{{ path("add_to_group", { "groupId": group.id }) }}" class="btn btn-success" role="button">{{ "group.add_to_group" | trans }}</a>
                     {# <button class="btn btn-danger clear_session">{{ "student.clear_storage" | trans }}</button> #}
-                    <a href="{{ path('clear') }}" class="btn btn-danger" role="button">{{ "student.clear_storage" | trans }}</a>
+                    <a href="{{ path("clear") }}" class="btn btn-danger" role="button">{{ "student.clear_storage" | trans }}</a>
                 </div>            
             {%endif%}
         {% else %}
             <div><button class="btn btn-warning" type="button">{{ "student.empty_storage" | trans }}</button></div>
-        {%endif %}
+            {%endif %} 
     </div>
 
     <table class="table table-striped">
@@ -44,10 +46,11 @@
             {% endfor %}        
         </tbody>
     </table>
-    <a href="{{ path('all_groups') }}" role="button" class="btn btn-primary">{{ "group.all_groups" | trans }}</a>
+    <a href="{{ path("all_groups") }}" role="button" class="btn btn-primary">{{ "group.all_groups" | trans }}</a>
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="{{ asset('js/jquery.add.row.number.js') }}"></script>
-    <script src="{{ asset('js/jquery.clear.session.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset("js/jquery.add.row.number.js") }}"></script>
+    <script src="{{ asset("js/jquery.clear.session.js") }}"></script>
 {% endblock %}
