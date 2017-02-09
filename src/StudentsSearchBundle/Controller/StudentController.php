@@ -50,17 +50,15 @@ class StudentController extends Controller {
             $student = $form->getData();
             $studentName = $student["name"];
             if (isset($student["community"])) {
-                dump($student["community"]);
                 $studentCommunity = $student["community"];
                 $findCommunity = $communityRepo->find($studentCommunity);
-                dump($findCommunity);
-                $students = $studentRepo->findByDistrictAndCountyAndCommunity($studentName, $findCommunity);
+                $students = $studentRepo->findByCommunity($studentName, $findCommunity);
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
             }
             if (isset($student["county"])) {
                 $studentCounty = $student["county"];
                 $findCounty = $countyRepo->find($studentCounty);
-                $students = $studentRepo->findByDistrictAndCounty($studentName, $findCounty);
+                $students = $studentRepo->findByCounty($studentName, $findCounty);
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
             }
             if (isset($student["district"])) {
@@ -69,7 +67,6 @@ class StudentController extends Controller {
                 $students = $studentRepo->findByDistrict($studentName, $findDistrict);
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
             }
-
 
             $students = $studentRepo->findByName($studentName);
             return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);

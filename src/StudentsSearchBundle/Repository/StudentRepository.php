@@ -36,7 +36,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
         return $query;
     }
 
-    public function findByDistrictAndCounty($names, $county) {
+    public function findByCounty($names, $county) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
                 ->from("StudentsSearchBundle:Student", "student")
@@ -50,7 +50,7 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
         return $query;
     }
 
-    public function findByDistrictAndCountyAndCommunity($names, $community) {
+    public function findByCommunity($names, $community) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
                 ->from("StudentsSearchBundle:Student", "student")
