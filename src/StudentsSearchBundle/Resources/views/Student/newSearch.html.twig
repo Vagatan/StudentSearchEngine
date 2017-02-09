@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1 class="bg-primary text-center">{{ "main.page_title" | trans }}</h1>
     <div class="form-group">
         {{ form_start(form, { 'attr': {'novalidate': 'novalidate'} }) }}
         {{ form_row(form.name) }}
@@ -10,7 +11,7 @@
         {{ form_row(form.submit) }}
         {{ form_end(form) }}
     </div>
-        <h1>{{ "student.search_result" | trans }}:</h1>
+    <h2>{{ "student.search_result" | trans }}:</h2>
 
     <table class="table table-striped">
         <thead>
@@ -25,19 +26,23 @@
         </thead>
         <tbody>
             {% if students is defined %}
-            {% for student in students %}
-                <tr>
-                    <td></td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.district.name }}</td>
-                    <td>{{ student.county.name }}</td>
-                    <td>{{ student.community.name }}</td>
-                    <td><button class="btn btn-info add_to_storage" id="{{ student.id }}">{{ "student.add_to_storage" | trans }}</button></td>
-                </tr>
-            {% endfor %}
+                {% if students is not empty %}
+                    {% for student in students %}
+                        <tr>
+                            <td></td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.district.name }}</td>
+                            <td>{{ student.county.name }}</td>
+                            <td>{{ student.community.name }}</td>
+                            <td><button class="btn btn-info add_to_storage" id="{{ student.id }}">{{ "student.add_to_storage" | trans }}</button></td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                <h3 class="bg-danger text-center">{{ "student.empty_search" | trans }}</h3>
             {% endif %}
-        </tbody>
-    </table>
+        {% endif %}
+    </tbody>
+</table>
 {% endblock %}
 
 {% block javascripts %}

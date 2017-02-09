@@ -18,6 +18,7 @@ student:
     add_to_storage:     Dodaj do schowka
     clear_storage:      Wyczyść schowek
     empty_storage:      Schowek jest pusty
+    empty_search:       Brak wyników
     
 group:
     group:              Grupa

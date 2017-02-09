@@ -100,5 +100,13 @@ class StudentGroupController extends Controller {
         $request->getSession()->clear();
         return $this->redirect($request->headers->get("referer"));
     }
+    
+    /**
+     * @Route("/groups/{$id}/cleartest")
+     */
+    public function clearAjaxAction (Request $request, $id) {
+        $request->getSession()->clear();
+        return new JsonResponse();
+    }
 
 }

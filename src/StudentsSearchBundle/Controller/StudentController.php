@@ -62,7 +62,7 @@ class StudentController extends Controller {
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);
             }
             if (isset($student["community"])) {
-                $studentCommunity = $student["community"];
+                $studentCommunity = $student["community"];                
                 $findCommunity = $communityRepo->find($studentCommunity);
                 $students = $studentRepo->findByDistrict($studentName, $findCommunity);
                 return $this->render("StudentsSearchBundle:Student:newSearch.html.twig", ["students" => $students, "form" => $form->createView()]);

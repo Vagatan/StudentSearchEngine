@@ -3,7 +3,7 @@ $(document).ready(function () {
     clearButton.click(function (event){
         $.ajax({
             type:"POST",
-            url: "/app_dev.php/clear_storage"
+            url: window.location.href + "/cleartest"
         });
     });
 });

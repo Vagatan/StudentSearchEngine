@@ -11,61 +11,56 @@ namespace StudentsSearchBundle\Repository;
 class StudentRepository extends \Doctrine\ORM\EntityRepository {
 
     public function findByName($names) {
-        $query = $this->getEntityManager()->createQuery("
-               SELECT student 
-               FROM StudentsSearchBundle:Student student
-               WHERE student.name LIKE :name
-               ORDER BY student.name
-               ")
-                ->setParameter('name', $names . "%")
+        $query = $this->getEntityManager()->createQueryBuilder("student")
+                ->select("student")
+                ->from("StudentsSearchBundle:Student", "student")
+                ->where("student.name LIKE :name")
+                ->orderby("student.name")
+                ->setParameter("name", $names . "%")
+                ->getQuery()
                 ->getResult();
         return $query;
+        
     }
 
     public function findByDistrict($names, $district) {
-        $query = $this->getEntityManager()->createQuery("
-               SELECT student 
-               FROM StudentsSearchBundle:Student student
-               WHERE student.name LIKE :name
-               AND student.district = :district
-               ORDER BY student.name
-               ")
-                ->setParameters([
-                    "name" => $names . "%",
-                    "district" => $district
-                ])
+        $query = $this->getEntityManager()->createQueryBuilder("student")
+                ->select("student")
+                ->from("StudentsSearchBundle:Student", "student")
+                ->where("student.name LIKE :name")
+                ->andWhere("student.district = :district")
+                ->orderby("student.name")
+                ->setParameter("name", $names . "%")
+                ->setParameter("district", $district)
+                ->getQuery()
                 ->getResult();
         return $query;
     }
 
     public function findByDistrictAndCounty($names,  $county) {
-        $query = $this->getEntityManager()->createQuery("
-               SELECT student 
-               FROM StudentsSearchBundle:Student student
-               WHERE student.name LIKE :name
-               AND student.county = :county
-               ORDER BY student.name
-               ")
-                ->setParameters([
-                    "name" => $names . "%",                   
-                    "county" => $county
-                ])
+        $query = $this->getEntityManager()->createQueryBuilder("student")
+                ->select("student")
+                ->from("StudentsSearchBundle:Student", "student")
+                ->where("student.name LIKE :name")
+                ->andWhere("student.county = :county")
+                ->orderby("student.name")
+                ->setParameter("name", $names . "%")
+                ->setParameter("county", $county)
+                ->getQuery()
                 ->getResult();
         return $query;
     }
 
     public function findByDistrictAndCountyAndCommunity($names, $community) {
-        $query = $this->getEntityManager()->createQuery("
-               SELECT student 
-               FROM StudentsSearchBundle:Student student
-               WHERE student.name LIKE :name
-               AND student.community = :community
-               ORDER BY student.name
-               ")
-                ->setParameters([
-                    "name" => $names . "%",
-                    "community" => $community
-                ])
+        $query = $this->getEntityManager()->createQueryBuilder("student")
+                ->select("student")
+                ->from("StudentsSearchBundle:Student", "student")
+                ->where("student.name LIKE :name")
+                ->andWhere("student.community = :community")
+                ->orderby("student.name")
+                ->setParameter("name", $names . "%")
+                ->setParameter("community", $community)
+                ->getQuery()
                 ->getResult();
         return $query;
     }

@@ -18,6 +18,7 @@ student:
     add_to_storage:     Add to clipboard
     clear_storage:      Clear clipboard
     empty_storage:      Clipboard is empty
+    empty_search:       No matches
     
 group:
     group:              Group
