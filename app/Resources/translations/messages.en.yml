@@ -1,0 +1,26 @@
+main:
+    page_title:         Students search
+    main_page:          Main page    
+    action:             Action
+    ordinal_number:     No.
+
+student:
+    name:               Name
+    district:           District
+    county:             County
+    community:          Community    
+    search:             Search
+    search_result:      Znalezieni studenci
+    storage:            Clipboard
+    add_to_storage:     Add to clipboard
+    clear_storage:      Clear clipboard
+    empty_storage:      Clipboard is empty
+    
+group:
+    group:              Group
+    groups:             Groups
+    add_to_group:       Add to group
+    name:               Name
+    open:               Open
+    all_groups:         All groups
+    available_groups:   Available groups

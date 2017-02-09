@@ -1,0 +1,26 @@
+main:
+    page_title:         Wyszukiwarka studentów
+    main_page:          Strona główna    
+    action:             Akcja
+    ordinal_number:     Lp.
+
+student:
+    name:               Nazwisko
+    district:           Województwo
+    county:             Powiat
+    community:          Gmina    
+    search:             Szukaj
+    search_result:      Znalezieni studenci
+    storage:            Schowek
+    add_to_storage:     Dodaj do schowka
+    clear_storage:      Wyczyść schowek
+    empty_storage:      Schowek jest pusty
+    
+group:
+    group:              Grupa
+    groups:             Grupy
+    add_to_group:       Dodaj do grupy
+    name:               Nazwa
+    open:               Otwórz
+    all_groups:         Wszystkie grupy
+    available_groups:   Dostępne grupy
