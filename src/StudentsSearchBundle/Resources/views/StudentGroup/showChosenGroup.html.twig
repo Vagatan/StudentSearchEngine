@@ -14,14 +14,14 @@
         {% if app.session.get("student_group") %}
             {% set storage =  app.session.get("student_group") %}
             {% if storage|length > 0 %}
-                <div class="btn-group" role="group"><button class="btn btn-info" type="button">{{ "student.storage" | trans }}  <span class="badge">{{ storage|length }}</span></button>
+                <div class="btn-group" role="group"><button class="btn btn-warning" type="button">{{ "student.storage" | trans }}  <span class="badge">{{ storage|length }}</span></button>
                     <a href="{{ path('add_to_group', { 'groupId': group.id }) }}" class="btn btn-success" role="button">{{ "group.add_to_group" | trans }}</a>
                     {# <button class="btn btn-danger clear_session">{{ "student.clear_storage" | trans }}</button> #}
                     <a href="{{ path('clear') }}" class="btn btn-danger" role="button">{{ "student.clear_storage" | trans }}</a>
                 </div>            
             {%endif%}
         {% else %}
-            <div><button class="btn btn-primary" type="button">{{ "student.empty_storage" | trans }}</button></div>
+            <div><button class="btn btn-warning" type="button">{{ "student.empty_storage" | trans }}</button></div>
         {%endif %}
     </div>
 
