@@ -100,9 +100,9 @@ class StudentGroupController extends Controller {
     }
 
     /**
-     * @Route("/groups/{$id}/cleartest")
+     * @Route("/cleartest", name="cleartest")
      */
-    public function clearAjaxAction(Request $request, $id) {
+    public function clearAjaxAction(Request $request) {
         $request->getSession()->clear();
         return new JsonResponse();
     }

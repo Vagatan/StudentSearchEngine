@@ -34,7 +34,7 @@
                             <td>{{ student.district.name }}</td>
                             <td>{{ student.county.name }}</td>
                             <td>{{ student.community.name }}</td>
-                            <td><button class="btn btn-info add_to_storage" id="{{ student.id }}">{{ "student.add_to_storage" | trans }}</button></td>
+                            <td><button class="btn btn-warning add_to_storage" id="{{ student.id }}">{{ "student.add_to_storage" | trans }}</button></td>
                         </tr>
                     {% endfor %}
                 {% else %}

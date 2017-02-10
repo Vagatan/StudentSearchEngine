@@ -19,11 +19,13 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
                 ->setParameter("name", $names . "%")
                 ->getQuery()
                 ->getResult();
-        return $query;        
+        return $query;
     }
 
     public function findByDistrict($names, $district) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
+                ->select("student")
+                ->from("StudentsSearchBundle:Student", "student")
                 ->where("student.name LIKE :name")
                 ->andWhere("student.district = :district")
                 ->orderby("student.name")

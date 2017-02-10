@@ -5,8 +5,10 @@ $(document).ready(function () {
         var $data = {"district_id": district.val()};
         $.ajax({
             type: "POST",
-            data: $data
+            data: $data,
+            url: "county"
         }).done(function (counties) {
+            console.log('dc');
             $("#student_community option").remove();
             $("#student_county option").remove();
             var selectedCommunity = $("#student_community");
@@ -22,7 +24,8 @@ $(document).ready(function () {
         var $countyData = {"county_id": $("#student_county").val()};
         $.ajax({
             type: "POST",
-            data: $countyData
+            data: $countyData,
+            url: "community"
         }).done(function (community) {
             $("#student_community option").remove();
             var selectedCommunity = $("#student_community");
