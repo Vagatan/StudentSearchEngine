@@ -68,26 +68,26 @@ class StudentGroupController extends Controller {
      * @Template
      */
     public function addFromStorageToGroupAction(Request $request, $groupId) {
-
         $studentRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:Student");
         $groupRepo = $this->getDoctrine()->getManager()->getRepository("StudentsSearchBundle:StudentGroup");
         $addedGroup = $groupRepo->find($groupId);
-        foreach ($request->getSession()->get("student_group") as $studentId) {
-
+        $session = $request->getSession()->get("student_group");
+        foreach ($session as $studentId) {
             $student = $studentRepo->find($studentId);
             if (!$student->getGroups()->contains($addedGroup)) {
                 $student->addGroup($addedGroup);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($student);
                 $em->flush();
+                $removeId = array_search($studentId, $session);
+                unset($session[$removeId]);
             } else {
                 $request->getSession()
                         ->getFlashBag()
-                        ->add("student_in_group", "Wybrany student jest już w tej grupie");
-                return $this->redirect($request->headers->get("referer"));
+                        ->add("student_in_group", $student->getName() . " jest już w tej grupie");                
             }
-        }
-        $request->getSession()->clear();
+        } 
+        $request->getSession()->set("student_group", $session);
         return $this->redirect($request->headers->get("referer"));
     }
 
