@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class StudentController extends Controller {
 
     /**
-     * Method which search students
+     * Searching students by selected criteria
      * 
      * @Route("/", name="student_search")
      * 
@@ -41,6 +41,8 @@ class StudentController extends Controller {
     }
 
     /**
+     * Receiving AJAX and sending to from county listy for selected district
+     * 
      * @Route("/county", name="select_county")
      * @return JsonResponse
      */
@@ -60,6 +62,8 @@ class StudentController extends Controller {
     }
 
     /**
+     * Receiving AJAX and sending to form community list for selected county
+     * 
      * @Route("/community", name="select_community")
      * @return JsonResponse
      */

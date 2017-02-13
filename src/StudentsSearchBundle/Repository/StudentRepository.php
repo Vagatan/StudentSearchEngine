@@ -9,7 +9,10 @@ namespace StudentsSearchBundle\Repository;
  * repository methods below.
  */
 class StudentRepository extends \Doctrine\ORM\EntityRepository {
-
+    
+    /**
+     * Finding students by name
+     */
     public function findByName($names) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
@@ -22,6 +25,9 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
         return $query;
     }
 
+    /**
+     * Finding students by district
+     */
     public function findByDistrict($names, $district) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
@@ -35,7 +41,10 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
                 ->getResult();
         return $query;
     }
-
+    
+    /**
+     * Finding students by county
+     */
     public function findByCounty($names, $county) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")
@@ -49,7 +58,10 @@ class StudentRepository extends \Doctrine\ORM\EntityRepository {
                 ->getResult();
         return $query;
     }
-
+    
+    /**
+     * Finding students by coomunity
+     */
     public function findByCommunity($names, $community) {
         $query = $this->getEntityManager()->createQueryBuilder("student")
                 ->select("student")

@@ -13,8 +13,6 @@ services:
       - data_logs:/logs
     working_dir: /project
     stdin_open: true
-    links:
-      - db
 
   db:
     container_name: search-db

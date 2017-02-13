@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class StudentGroupController extends Controller {
 
     /**
+     * Showing list of all groups
+     * 
      * @Route("/groups", name="all_groups")
      */
     public function showAllAction() {
@@ -20,6 +22,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Sending all groups to menu twig
+     * 
      * @Route("/group_menu", name="groups_in_menu")
      */
     public function menuAction() {
@@ -29,6 +33,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Showing selected group
+     * 
      * @Route("/groups/{groupId}", name="chosen_group")
      */
     public function showChosenGroupAction($groupId) {
@@ -38,6 +44,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Receiving AJAX and adding students to clipboard
+     * 
      * @Route("/addToStorage", name="added_to_storage")
      * 
      * @return Response
@@ -64,6 +72,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Adding students to selected group and removing added ones from clipboard
+     * 
      * @Route("/add_to_group/{groupId}", name="add_to_group")
      * @Template
      */
@@ -92,6 +102,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Clearing clipboard by link
+     * 
      * @Route("/clear_storage", name="clear")
      */
     public function clearStorageAction(Request $request) {
@@ -100,6 +112,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Receiving AJAX and clearing clipboard
+     * 
      * @Route("/cleartest", name="cleartest")
      */
     public function clearAjaxAction(Request $request) {
@@ -108,6 +122,8 @@ class StudentGroupController extends Controller {
     }
 
     /**
+     * Showing all students in clipboard (in button)
+     * 
      * @Route("/storage", name="storage_preview")
      */
     public function showStorageAction(Request $request) {
