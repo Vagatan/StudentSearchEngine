@@ -1,5 +1,4 @@
-students_search_engine
+Students Search Engine
 ======================
 
-A Symfony project created on February 2, 2017, 11:19 am.
-# jdp-gkozak
+Symfony project. Simple students search engine.
