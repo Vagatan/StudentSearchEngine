@@ -7,6 +7,7 @@ Setting up
 ---------------
 
     git clone git@github.com:Vagatan/StudentSearchEngine.git
+    cd students_search_engine
     docker-compose up -d
 
 Accessing the app
