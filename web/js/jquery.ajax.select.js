@@ -8,7 +8,6 @@ $(document).ready(function () {
             data: $data,
             url: "county"
         }).done(function (counties) {
-            console.log('dc');
             $("#student_community option").remove();
             $("#student_county option").remove();
             var selectedCommunity = $("#student_community");

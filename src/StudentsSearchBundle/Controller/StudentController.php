@@ -41,7 +41,7 @@ class StudentController extends Controller {
     }
 
     /**
-     * Receiving AJAX and sending to from county listy for selected district
+     * Receiving AJAX and sending to form county listy for selected district
      * 
      * @Route("/county", name="select_county")
      * @return JsonResponse
@@ -52,11 +52,11 @@ class StudentController extends Controller {
             if ($request->request->get("district_id")) {
                 $data = $request->request->get("district_id");
                 $counties = $countyRepo->findBy(["district" => $data]);
-                $count = [];
+                $countiesFromDistrict = [];
                 foreach ($counties as $county) {
-                    $count[] = ["id" => $county->getId(), "name" => $county->getName()];
+                    $countiesFromDistrict[] = ["id" => $county->getId(), "name" => $county->getName()];
                 }
-                return new JsonResponse(["counties" => $count]);
+                return new JsonResponse(["counties" => $countiesFromDistrict]);
             }
         }
     }
@@ -73,11 +73,11 @@ class StudentController extends Controller {
             if ($request->request->get("county_id")) {
                 $countyData = $request->request->get("county_id");
                 $communities = $communityRepo->findBy(["county" => $countyData]);
-                $comm = [];
+                $communitiesFromCounty = [];
                 foreach ($communities as $community) {
-                    $comm[] = ["id" => $community->getId(), "name" => $community->getName()];
+                    $communitiesFromCounty[] = ["id" => $community->getId(), "name" => $community->getName()];
                 }
-                return new JsonResponse(["community" => $comm]);
+                return new JsonResponse(["community" => $communitiesFromCounty]);
             }
         }
     }

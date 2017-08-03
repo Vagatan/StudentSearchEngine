@@ -1,5 +1,5 @@
 FROM php:7.1-apache
-MAINTAINER N-educatio <gkozak@n-educatio.pl>
+MAINTAINER Vagatan <grzesiek.kozak@gmail.com>
 
 RUN apt-get update && apt-get install -y curl \
   git \
