@@ -3,6 +3,9 @@ Students Search Engine
 
 Symfony project. Simple students search engine.
 
+Symfony 3.2.2
+PHP 7.1
+
 Setting up
 ---------------
 
