@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y curl \
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN pear channel-discover pear.phing.info && pear upgrade-all && pear install phing/phing
+RUN pear channel-discover pear.phing.info && pear upgrade --force && pear install phing/phing
 # Clean up APT
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
