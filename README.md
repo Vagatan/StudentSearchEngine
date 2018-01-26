@@ -25,8 +25,6 @@ Enter container running ```docker exec -it student-search bash```
 
 In container run ```composer update```
 
-Run ```bin/console server:run 0.0.0.0:8000```
-
 Populate database with data from students_search_engine.sql
 
 Accessing the app
