@@ -9,6 +9,14 @@ RUN apt-get update && apt-get install -y curl \
   wget \
   mysql-client
 
+# Symfony install script
+RUN mkdir -p /usr/local/bin && \
+    curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
+    chmod a+x /usr/local/bin/symfony
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 RUN pear channel-discover pear.phing.info && pear upgrade --force && pear install phing/phing
