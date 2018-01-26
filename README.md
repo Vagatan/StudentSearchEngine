@@ -10,12 +10,12 @@ Setting up
 ---------------
 
 Using SSH
-    ```git clone git@github.com:Vagatan/StudentSearchEngine.git```
+```git clone git@github.com:Vagatan/StudentSearchEngine.git```
 
 Using HTTPS
-    ```git clone https://github.com/Vagatan/StudentSearchEngine.git```
+```git clone https://github.com/Vagatan/StudentSearchEngine.git```
 
-    ```cd students_search_engine```
+```cd students_search_engine```
 
 Create app/config/paramaters.yml from app/config/parameters.yml.dist file
 
